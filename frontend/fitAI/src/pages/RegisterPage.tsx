@@ -1,11 +1,13 @@
 import { useState } from "react";
 
 export default function RegisterPage(){
+
+
   const [sex, setSex] = useState<string>("");
   return(
-  <div className="container-fluid py-5 vh-100">
+  <div className="container-fluid py-5 vh-100 w-75">
   <div className="row d-flex justify-content-center align-items-center h-100">
-    <div className="col-12 col-md-12 col-lg-12">
+    <div className="col-12 col-md-8 col-lg-6">
       <form>
         <div className="row">
           <div className="col-6 mb-3 mt-3">

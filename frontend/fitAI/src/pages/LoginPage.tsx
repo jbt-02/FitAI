@@ -1,6 +1,6 @@
 export default function LoginPage(){
   return(
-  <div className="container py-5 vh-100">
+  <div className="container py-5 vh-100 w-50">
     <div className="row d-flex justify-content-center align-items-center h-100">
         <div className="col-12 col-md-8 col-lg-6">
           <form>
