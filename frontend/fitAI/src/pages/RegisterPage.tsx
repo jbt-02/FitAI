@@ -1,9 +1,25 @@
 import { useState } from "react";
+import { register } from "../api/auth";
+
+interface RegisterForm{
+  firstName: string;
+  lastName: string;
+  email: string;
+  age: number;
+  sex: string;
+}
 
 export default function RegisterPage(){
+  const [ registerForm, setRegisterForm ] = useState<RegisterForm>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    age: 0,
+    sex: ""
+  });
 
+  const [onSubmit, setOnSubmit] = useState<boolean>(false);
 
-  const [sex, setSex] = useState<string>("");
   return(
   <div className="container-fluid py-5 vh-100 w-75">
   <div className="row d-flex justify-content-center align-items-center h-100">
@@ -12,31 +28,31 @@ export default function RegisterPage(){
         <div className="row">
           <div className="col-6 mb-3 mt-3">
             <label className="form-label">First Name:</label>
-            <input type="text" className="form-control" placeholder="Enter first name" />
+            <input type="text" className="form-control" onChange={(e) => setRegisterForm({...registerForm, firstName: e.target.value})} placeholder="Enter first name" />
           </div>
 
           <div className="col-6 mt-3 mb-3">
             <label className="form-label">Last Name:</label>
-            <input type="text" className="form-control" placeholder="Enter last name" />
+            <input type="text" className="form-control" onChange={(e) => setRegisterForm({...registerForm, lastName: e.target.value})} placeholder="Enter last name" />
           </div>
         </div>
 
         <div className="mb-3">
           <label className="form-label">Email:</label>
-          <input type="email" className="form-control" placeholder="Enter email" />
+          <input type="email" className="form-control" onChange={(e) => setRegisterForm({...registerForm, email: e.target.value})} placeholder="Enter email" />
         </div>
 
         <div className="mb-3">
           <label className="form-label">Age:</label>
-          <input type="number" className="form-control" placeholder="Enter age" />
+          <input type="number" className="form-control" onChange={(e) => setRegisterForm({...registerForm, age: e.target.value})} placeholder="Enter age" />
         </div>
 
         <div className="mb-3">
           <label className="form-label">Sex:</label>
           <select
             className="form-select"
-            value={sex}
-            onChange={(e) => setSex(e.target.value)}
+            value={registerForm.sex}
+            onChange={(e) => setRegisterForm({...registerForm, sex: e.target.value})}
           >
             <option value="">Select one</option>
             <option value="M">Male</option>
@@ -44,10 +60,26 @@ export default function RegisterPage(){
           </select>
         </div>
 
-        <button className="btn btn-primary w-100">Create Account</button>
+        <button type="button" className="btn btn-primary w-100" disabled={onSubmit} onClick={() => {setOnSubmit(true);handleRegister(registerForm);}}>{onSubmit ? "Loading..." : "Create Account"}</button>
       </form>
     </div>
   </div>
 </div>
   );
+}
+
+
+const validateEmail = (email : string) => {
+  if(email.length === 0){return false;}
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailPattern.test(email);
+}
+
+const handleRegister = async (formData : RegisterForm) => {
+  if(!validateEmail(formData.email)){alert("Bad email");return;}
+  try{
+    const response = await register(formData);
+  }catch(error){
+    console.error(error);
+  } 
 }

@@ -1,4 +1,16 @@
+import { useState } from "react";
+
+interface LoginForm{
+  email: string;
+  password: string;
+};
+
 export default function LoginPage(){
+  const [loginForm, setLoginForm] = useState<LoginForm>({
+    email: "",
+    password: ""
+  });
+
   return(
   <div className="container py-5 vh-100 w-50">
     <div className="row d-flex justify-content-center align-items-center h-100">
@@ -6,11 +18,11 @@ export default function LoginPage(){
           <form>
             <div className="mt-3 mb-3">
               <label className="form-label">Email:</label>
-              <input type="email" className="form-control" placeholder="Enter email"/>
+              <input type="email" className="form-control" onChange={(e) => {setLoginForm({...loginForm, email: e.target.value})}} placeholder="Enter email"/>
             </div>
             <div className="mb-3">
               <label className="form-label">Password:</label>
-              <input type="password" className="form-control" placeholder="Enter password"/>
+              <input type="password" className="form-control" onChange={(e) => {setLoginForm({...loginForm, password: e.target.value})}} placeholder="Enter password"/>
             </div>
             <button className="btn btn-primary w-100">Sign in</button>
           </form>
