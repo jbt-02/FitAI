@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,7 +24,9 @@ public class Program {
   private long programId;
 
   private String name;
-  private String programMetadata;
+
+  @OneToOne(mappedBy = "program")
+  private ProgramMetaData programMetadata;
 
   @CreationTimestamp
   private LocalDateTime createdAt;
