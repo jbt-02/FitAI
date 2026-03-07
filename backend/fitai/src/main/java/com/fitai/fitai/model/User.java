@@ -3,9 +3,12 @@ package com.fitai.fitai.model;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.fitai.fitai.model.trackedmodels.TrackedWorkout;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.ArrayList;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
