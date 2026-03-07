@@ -44,7 +44,7 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/", "/error")
+            .requestMatchers("/", "/auth/register", "/auth/login", "/error")
             .permitAll()
             .anyRequest().authenticated())
         .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -60,6 +60,8 @@ public class SecurityConfig {
     config.setAllowedOrigins(List.of("http://localhost:5173"));
     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     config.setAllowedHeaders(List.of("*"));
+    config.setAllowCredentials(true);
+    config.setExposedHeaders(List.of("Set-Cookie"));
     config.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

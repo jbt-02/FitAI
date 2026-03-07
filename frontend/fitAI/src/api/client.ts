@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "http://localhost:8080/";
 
 const client = async (endpoint: string, options?: RequestInit) => {
   const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -8,7 +8,7 @@ const client = async (endpoint: string, options?: RequestInit) => {
     ...options
   });
 
-  if(!response.ok) throw new Error(await response.text());
+  if (!response.ok) throw new Error(await response.text());
 
   return response.json();
 };
